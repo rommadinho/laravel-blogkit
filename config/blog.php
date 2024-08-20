@@ -24,7 +24,7 @@ return [
 	'requireVerifiedEmailForComments' => env('BLOGKIT_COMMENTS_VERIFY_EMAIL', false), // Default: false
 
 	// Should the site be in demo mode? (Do NOT use in production)
-	'demoMode' => env('BLOGKIT_DEMO_MODE', false), // Default: false
+	'demoMode' => env('BLOGKIT_DEMO_MODE', true), // Default: false
 
 	// Should the Readme file be available as a '/readme route?
 	'readme' => false, // Default: false
