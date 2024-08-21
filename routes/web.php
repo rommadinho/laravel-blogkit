@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReadmeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Http\Livewire\UserProfile;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +44,8 @@ if (config('blog.readme')) {
 }
 
 require __DIR__.'/auth.php';
+
+Route::get('/user/profile', UserProfile::class)->name('user.profile');
+Route::get('/download-pdf', [ReportController::class, 'generatePDF'])->name('report.pdf');
+Route::get('article/cetak_pdf', [ArticleController::class, 'cetak_pdf']);
+Route::resource('articles', ArticleController::class);

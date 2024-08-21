@@ -3,6 +3,9 @@
         Dashboard
     </x-slot>
 
+    <!-- Tombol Cetak PDF -->
+    <a href="{{ route('report.pdf') }}" class="btn btn-primary">Download PDF</a>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 dark:text-white">
             @if(session('success'))
