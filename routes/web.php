@@ -6,9 +6,11 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReadmeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Http\Livewire\UserProfile;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,17 @@ use App\Http\Livewire\UserProfile;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::post('/list', [UserController::class, 'list']);
+    Route::get('/create', [UserController::class, 'create']);
+    Route::post('/', [UserController::class, 'store']);
+    Route::get('/{id}', [UserController::class, 'show']);
+    Route::get('/{id}/edit', [UserController::class, 'edit']);
+    Route::put('/{id}', [UserController::class, 'update']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
+});
 
 Route::get('/', function () {
     return view('welcome', [
@@ -49,3 +62,4 @@ Route::get('/user/profile', UserProfile::class)->name('user.profile');
 Route::get('/download-pdf', [ReportController::class, 'generatePDF'])->name('report.pdf');
 Route::get('article/cetak_pdf', [ArticleController::class, 'cetak_pdf']);
 Route::resource('articles', ArticleController::class);
+Route::get('/', [WelcomeController::class, 'index']);

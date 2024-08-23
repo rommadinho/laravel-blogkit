@@ -15,7 +15,9 @@
         "livewire/livewire": "^2.10",
         "spatie/yaml-front-matter": "^2.0",
         "torchlight/torchlight-commonmark": "*",
-        "torchlight/torchlight-laravel": "^0.5.11"
+        "torchlight/torchlight-laravel": "^0.5.11",
+        "yajra/laravel-datatables": "10.0",
+        "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {
         "davidbadura/faker-markdown-generator": "^1.1",
