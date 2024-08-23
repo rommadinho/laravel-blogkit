@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
-
     /**
      * Display the view.
      *
@@ -24,10 +23,14 @@ class DashboardController extends Controller
             abort(403);
         }
         
+        // Initialize variables
+        $posts = null;
+        $users = null;
+        $comments = null;
+
         // If the user is an admin they can manage all posts and users
         if ($request->user()->is_admin) {
             $posts = Post::all();
-
             $users = User::all();
 
             // If comments are enabled or if there are comments we load them
@@ -36,16 +39,16 @@ class DashboardController extends Controller
             }
         }
 
-        // Otherwise if the user is an author we show their posts
+        // Otherwise, if the user is an author, we show their posts
         elseif ($request->user()->is_author) {
             $posts = $request->user()->posts;
         }
 
         // Return the view with the data we prepared
         return view('dashboard', [
-            'posts' => $posts ?? false,
-            'users' => $users ?? false,
-            'comments' => $comments ?? false,
+            'posts' => $posts,
+            'users' => $users,
+            'comments' => $comments,
         ]);
     }
 }

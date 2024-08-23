@@ -24,6 +24,10 @@ return new class extends Migration
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_author')->default(false);
             $table->boolean('is_banned')->default(false);
+
+            // Menambahkan foreign key ke level_users
+            $table->foreignId('level_user_id')->constrained('level_users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -38,3 +42,4 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
+

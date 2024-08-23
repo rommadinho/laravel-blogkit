@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'profile_photo',
+        'level_user_id',
     ];
 
     /**
@@ -35,24 +35,12 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * Get the level associated with the user.
      *
-     * @var array<string, string>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'is_admin' => 'boolean',
-        'is_author' => 'boolean',
-        'is_banned' => 'boolean',
-    ];
-
-    /**
-     * Get all of the posts for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function level(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasMany(Post::class, 'user_id', 'id');
+        return $this->belongsTo(LevelUser::class, 'level_user_id');
     }
 }

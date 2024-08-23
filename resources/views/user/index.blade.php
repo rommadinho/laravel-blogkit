@@ -13,6 +13,22 @@
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    <div class="col-3">
+                        <select class="form-control" id="level_id" name="level_name" required>
+                            <option value="">- Semua -</option>
+                            @foreach ($levels as $level)
+                                <option value="{{ $level->level_id }}">{{ $level->level_nama }}</option>
+                            @endforeach
+                        </select>
+                        <small class="form-text text-muted">Level Pengguna</small>
+                    </div>
+                </div>
+            </div>
+        </div>
         <table class="table table-bordered table-striped table-hover table-sm" id="table_user">
           <thead>
             <tr>
@@ -38,7 +54,10 @@
             ajax: { 
                 "url": "{{ url('user/list') }}", 
                 "dataType": "json", 
-                "type": "POST" 
+                "type": "POST",
+                "data": function (d){
+                    d.level_id = $('#level_id').val();
+                }
             },           
             columns: [             
                 {              
@@ -72,7 +91,10 @@
                     searchable: false   // Jika tidak ingin kolom ini dicari
                 } 
             ] 
-        }); 
+        });
+        $('#level_id').on('change', function() {
+            dataUser.ajax.reload();
+        });
     });
 </script>
 @endpush    
